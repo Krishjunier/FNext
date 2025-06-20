@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Click Counter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .counter-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 70px;
+            text-align: center;
+            max-width: 700px;
+            width: 100%;
+            min-height: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .counter-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .title {
+            color: #2c3e50;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .counter-display {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            font-size: 5rem;
+            font-weight: 800;
+            padding: 60px;
+            border-radius: 25px;
+            margin-bottom: 50px;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: 'Courier New', monospace;
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .counter-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .counter-display.flash::before {
+            left: 100%;
+        }
+
+        .counter-number {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .counter-number.bounce {
+            transform: scale(1.2);
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 18px 35px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            min-width: 140px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .increment-btn {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+        }
+
+        .increment-btn:hover {
+            background: linear-gradient(135deg, #229954 0%, #27ae60 100%);
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+
+        .reset-btn:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+        }
+
+        .stats {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(52, 73, 94, 0.1);
+            border-radius: 15px;
+            color: #2c3e50;
+        }
+
+        .stats h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3498db;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        /* Click ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .counter-container {
+                padding: 30px 20px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .counter-display {
+                font-size: 3rem;
+                padding: 30px;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            button {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="counter-container">
+        <h1 class="title">🎯 Click Counter</h1>
+        
+        <div class="counter-display" id="counterDisplay">
+            <span class="counter-number" id="counterNumber">0</span>
+        </div>
+        
+        <div class="buttons-container">
+            <button class="increment-btn" id="incrementBtn" onclick="incrementCounter()">
+                ➕ Click Me!
+            </button>
+            <button class="reset-btn" id="resetBtn" onclick="resetCounter()">
+                🔄 Reset
+            </button>
+        </div>
+        
+        <div class="stats">
+            <h3>📊 Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalClicks">0</div>
+                    <div class="stat-label">Total Clicks</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="resets">0</div>
+                    <div class="stat-label">Resets</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="highScore">0</div>
+                    <div class="stat-label">High Score</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="clickRate">0.0</div>
+                    <div class="stat-label">Clicks/Min</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Counter variables
+        let counter = 0;
+        let totalClicks = 0;
+        let resets = 0;
+        let highScore = 0;
+        let startTime = Date.now();
+        let lastClickTime = Date.now();
+
+        // Get DOM elements
+        const counterNumber = document.getElementById('counterNumber');
+        const counterDisplay = document.getElementById('counterDisplay');
+        const totalClicksEl = document.getElementById('totalClicks');
+        const resetsEl = document.getElementById('resets');
+        const highScoreEl = document.getElementById('highScore');
+        const clickRateEl = document.getElementById('clickRate');
+        const incrementBtn = document.getElementById('incrementBtn');
+
+        function incrementCounter() {
+            counter++;
+            totalClicks++;
+            lastClickTime = Date.now();
+            
+            updateDisplay();
+            updateStats();
+            addClickAnimation();
+            addRippleEffect(event);
+        }
+
+        function resetCounter() {
+            if (counter > highScore) {
+                highScore = counter;
+            }
+            
+            counter = 0;
+            resets++;
+            
+            updateDisplay();
+            updateStats();
+            addResetAnimation();
+        }
+
+        function updateDisplay() {
+            counterNumber.textContent = counter;
+            
+            // Add bounce animation
+            counterNumber.classList.add('bounce');
+            setTimeout(() => {
+                counterNumber.classList.remove('bounce');
+            }, 200);
+        }
+
+        function updateStats() {
+            totalClicksEl.textContent = totalClicks;
+            resetsEl.textContent = resets;
+            highScoreEl.textContent = highScore;
+            
+            // Calculate click rate (clicks per minute)
+            const timeElapsed = (Date.now() - startTime) / 1000 / 60; // in minutes
+            const clickRate = timeElapsed > 0 ? (totalClicks / timeElapsed).toFixed(1) : 0;
+            clickRateEl.textContent = clickRate;
+        }
+
+        function addClickAnimation() {
+            // Flash effect on counter display
+            counterDisplay.classList.add('flash');
+            setTimeout(() => {
+                counterDisplay.classList.remove('flash');
+            }, 500);
+        }
+
+        function addResetAnimation() {
+            // Shake animation for reset
+            counterDisplay.style.animation = 'shake 0.5s ease-in-out';
+            setTimeout(() => {
+                counterDisplay.style.animation = '';
+            }, 500);
+        }
+
+        function addRippleEffect(event) {
+            const button = event.target;
+            const rect = button.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            const size = 60;
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+            
+            button.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space' || event.code === 'Enter') {
+                event.preventDefault();
+                incrementCounter();
+            } else if (event.code === 'KeyR' || event.code === 'Escape') {
+                event.preventDefault();
+                resetCounter();
+            }
+        });
+
+        // Add shake animation to CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize stats
+        updateStats();
+        
+        // Update click rate every 5 seconds
+        setInterval(updateStats, 5000);
+    </script>
+</body>
+</html>
