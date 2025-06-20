@@ -43,21 +43,6 @@ Developed an interactive counter with:
 
 ---
 
-## 📎 Useful Links
-
-- 🔗 **LinkedIn Page**: [Fnext Solutions](https://www.linkedin.com/company/fnextsolutions/)
-- 📢 **Telegram Channel**: [Join Here](https://t.me/fnextsolutions)
-
----
-
-## 📌 Guidelines Followed
-
-- ✅ Weekly tasks completed using original code.  
-- ✅ Screenshots shared on LinkedIn with `#fnext` and tagged `@Fnext Solutions`.  
-- ✅ This GitHub repository named `FNEXT` contains all project files.
-
----
-
 ## 👨‍🎓 About Me
 
 **Gokul Krishnan YN**  
