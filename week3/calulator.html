@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 550px;
+            min-height: 700px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .display {
+            background: #2c3e50;
+            color: white;
+            font-size: 2.5rem;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: right;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            font-family: 'Courier New', monospace;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .advanced-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        button {
+            padding: 25px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .number {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .number:hover {
+            background: #d5dbdb;
+        }
+
+        .operator {
+            background: #3498db;
+            color: white;
+        }
+
+        .operator:hover {
+            background: #2980b9;
+        }
+
+        .advanced {
+            background: #e74c3c;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .advanced:hover {
+            background: #c0392b;
+        }
+
+        .equals {
+            background: #27ae60;
+            color: white;
+        }
+
+        .equals:hover {
+            background: #229954;
+        }
+
+        .clear {
+            background: #f39c12;
+            color: white;
+        }
+
+        .clear:hover {
+            background: #e67e22;
+        }
+
+        .calculator-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1 class="calculator-title">Advanced Calculator</h1>
+        <div class="display" id="display">0</div>
+        
+        <div class="buttons">
+            <button class="clear" onclick="clearAll()">C</button>
+            <button class="clear" onclick="clearEntry()">CE</button>
+            <button class="operator" onclick="inputOperator('/')" title="Division">÷</button>
+            <button class="operator" onclick="inputOperator('*')" title="Multiplication">×</button>
+            
+            <button class="number" onclick="inputNumber('7')">7</button>
+            <button class="number" onclick="inputNumber('8')">8</button>
+            <button class="number" onclick="inputNumber('9')">9</button>
+            <button class="operator" onclick="inputOperator('-')" title="Subtraction">−</button>
+            
+            <button class="number" onclick="inputNumber('4')">4</button>
+            <button class="number" onclick="inputNumber('5')">5</button>
+            <button class="number" onclick="inputNumber('6')">6</button>
+            <button class="operator" onclick="inputOperator('+')" title="Addition">+</button>
+            
+            <button class="number" onclick="inputNumber('1')">1</button>
+            <button class="number" onclick="inputNumber('2')">2</button>
+            <button class="number" onclick="inputNumber('3')">3</button>
+            <button class="equals" onclick="calculate()" rowspan="2">=</button>
+            
+            <button class="number" onclick="inputNumber('0')" style="grid-column: span 2;">0</button>
+            <button class="number" onclick="inputNumber('.')">.</button>
+        </div>
+
+        <div class="advanced-buttons">
+            <button class="advanced" onclick="calculateSquareRoot()" title="Square Root">√x</button>
+            <button class="advanced" onclick="calculateSquare()" title="Square">x²</button>
+            <button class="advanced" onclick="calculateCube()" title="Cube">x³</button>
+            <button class="advanced" onclick="calculateCubeRoot()" title="Cube Root">∛x</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let currentInput = '0';
+        let previousInput = '';
+        let operator = '';
+        let waitingForOperand = false;
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        function inputNumber(num) {
+            if (waitingForOperand) {
+                currentInput = num;
+                waitingForOperand = false;
+            } else {
+                currentInput = currentInput === '0' ? num : currentInput + num;
+            }
+            updateDisplay();
+        }
+
+        function inputOperator(nextOperator) {
+            const inputValue = parseFloat(currentInput);
+
+            if (previousInput === '') {
+                previousInput = inputValue;
+            } else if (operator) {
+                const currentValue = previousInput || 0;
+                const newValue = performCalculation(currentValue, inputValue, operator);
+
+                if (newValue === null) return;
+
+                currentInput = String(newValue);
+                previousInput = newValue;
+                updateDisplay();
+            }
+
+            waitingForOperand = true;
+            operator = nextOperator;
+        }
+
+        function calculate() {
+            const inputValue = parseFloat(currentInput);
+
+            if (previousInput !== '' && operator) {
+                const newValue = performCalculation(previousInput, inputValue, operator);
+                
+                if (newValue === null) return;
+
+                currentInput = String(newValue);
+                previousInput = '';
+                operator = '';
+                waitingForOperand = true;
+                updateDisplay();
+            }
+        }
+
+        function performCalculation(firstOperand, secondOperand, operator) {
+            let result;
+            
+            switch (operator) {
+                case '+':
+                    result = firstOperand + secondOperand;
+                    break;
+                case '-':
+                    result = firstOperand - secondOperand;
+                    break;
+                case '*':
+                    result = firstOperand * secondOperand;
+                    break;
+                case '/':
+                    if (secondOperand === 0) {
+                        alert('Error: Division by zero!');
+                        return null;
+                    }
+                    result = firstOperand / secondOperand;
+                    break;
+                default:
+                    return null;
+            }
+
+            // Round to avoid floating point precision issues
+            return Math.round(result * 100000000) / 100000000;
+        }
+
+        function calculateSquareRoot() {
+            const inputValue = parseFloat(currentInput);
+            if (inputValue < 0) {
+                alert('Error: Cannot calculate square root of negative number!');
+                return;
+            }
+            const result = Math.sqrt(inputValue);
+            currentInput = String(Math.round(result * 100000000) / 100000000);
+            waitingForOperand = true;
+            updateDisplay();
+        }
+
+        function calculateSquare() {
+            const inputValue = parseFloat(currentInput);
+            const result = inputValue * inputValue;
+            currentInput = String(Math.round(result * 100000000) / 100000000);
+            waitingForOperand = true;
+            updateDisplay();
+        }
+
+        function calculateCube() {
+            const inputValue = parseFloat(currentInput);
+            const result = inputValue * inputValue * inputValue;
+            currentInput = String(Math.round(result * 100000000) / 100000000);
+            waitingForOperand = true;
+            updateDisplay();
+        }
+
+        function calculateCubeRoot() {
+            const inputValue = parseFloat(currentInput);
+            const result = Math.cbrt(inputValue);
+            currentInput = String(Math.round(result * 100000000) / 100000000);
+            waitingForOperand = true;
+            updateDisplay();
+        }
+
+        function clearAll() {
+            currentInput = '0';
+            previousInput = '';
+            operator = '';
+            waitingForOperand = false;
+            updateDisplay();
+        }
+
+        function clearEntry() {
+            currentInput = '0';
+            updateDisplay();
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', function(event) {
+            const key = event.key;
+            
+            if (key >= '0' && key <= '9' || key === '.') {
+                inputNumber(key);
+            } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+                inputOperator(key);
+            } else if (key === 'Enter' || key === '=') {
+                event.preventDefault();
+                calculate();
+            } else if (key === 'Escape' || key === 'c' || key === 'C') {
+                clearAll();
+            } else if (key === 'Delete') {
+                clearEntry();
+            }
+        });
+
+        // Initialize display
+        updateDisplay();
+    </script>
+</body>
+</html>
