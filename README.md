@@ -7,6 +7,17 @@ This repository contains all the tasks completed during the **Web Development In
 
 ---
 
+## 🔍 Quick Navigation
+
+- [Week 1: Personal Profile Page](#week-1-personal-profile-page-html--css)
+- [Week 2: Simple Landing Page](#week-2-simple-landing-page-html--css)
+- [Week 3: Basic Calculator](#week-3-basic-calculator-html-css--javascript)
+- [Week 4: Interactive Click Counter](#week-4-interactive-click-counter-html-css--javascript)
+- [Live Demo Links](#-live-demo-links)
+- [Technologies Used](#-technologies-used)
+
+---
+
 ## 📁 Weekly Task Breakdown
 
 ### ✅ Week 1: Personal Profile Page (HTML & CSS)
@@ -37,9 +48,25 @@ Developed an interactive counter with:
 
 ---
 
-## 📷 Screenshots
+## 🚀 Live Demo Links
 
-> Screenshots of the completed tasks are available in their respective folders (e.g., `Week1/`, `Week2/`, etc.).
+> *(Add your GitHub Pages or Replit/Netlify/Render/other links here)*
+
+- 🌐 Week 1 Demo: [Live](#)  
+- 🌐 Week 2 Demo: [Live](#)  
+- 🌐 Week 3 Demo: [Live](#)  
+- 🌐 Week 4 Demo: [Live](#)  
+
+---
+
+## 🧰 Technologies Used
+
+| Week | Technologies |
+|------|--------------|
+| 1    | HTML5, CSS3 |
+| 2    | HTML5, CSS3 |
+| 3    | HTML5, CSS3, JavaScript |
+| 4    | HTML5, CSS3, JavaScript |
 
 ---
 
