@@ -9,12 +9,12 @@ This repository contains all the tasks completed during the **Web Development In
 
 ## 🔍 Quick Navigation
 
-- [Week 1: Personal Profile Page](#w[eek-1-personal-profile-page-html--css](https://github.com/Krishjunier/FNext/tree/main/Week1))
-- [Week 2: Simple Landing Page](#[week-2-simple-landing-page-html--css](https://github.com/Krishjunier/FNext/tree/main/Week2))
-- [Week 3: Basic Calculator](#[week-3-basic-calculator-html-css--javascript](https://github.com/Krishjunier/FNext/tree/main/week3))
-- [Week 4: Interactive Click Counter](#[week-4-interactive-click-counter-html-css--javascript](https://github.com/Krishjunier/FNext/tree/main/week4))
-- [Live Demo Links](#-live-demo-links)
-- [Technologies Used](#-technologies-used)
+- [Week 1: Personal Profile Page](#week-1-personal-profile-page-html--css)
+- [Week 2: Simple Landing Page](#week-2-simple-landing-page-html--css)
+- [Week 3: Basic Calculator](#week-3-basic-calculator-html-css--javascript)
+- [Week 4: Interactive Click Counter](#week-4-interactive-click-counter-html-css--javascript)
+- [🚀 Live Demo Links](#-live-demo-links)
+- [🧰 Technologies Used](#-technologies-used)
 
 ---
 
