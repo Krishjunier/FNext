@@ -25,37 +25,47 @@ Created a simple personal profile page with:
 - Name & Short Bio  
 - Profile Image  
 - Hobbies Section  
-- Contact Information
+- Contact Information  
+📂 [View Code](https://github.com/Krishjunier/FNext/tree/main/Week1)
+
+---
 
 ### ✅ Week 2: Simple Landing Page (HTML & CSS)
 Built a landing page including:
 - Header  
 - Product Description  
 - Features Section  
-- Footer
+- Footer  
+📂 [View Code](https://github.com/Krishjunier/FNext/tree/main/Week2)
+
+---
 
 ### ✅ Week 3: Basic Calculator (HTML, CSS & JavaScript)
 Designed a basic calculator that performs:
 - Addition  
 - Subtraction  
 - Multiplication  
-- Division
+- Division  
+📂 [View Code](https://github.com/Krishjunier/FNext/tree/main/Week3)
+
+---
 
 ### ✅ Week 4: Interactive Click Counter (HTML, CSS & JavaScript)
 Developed an interactive counter with:
 - Click-to-increase feature  
-- Reset button (Bonus)
+- Reset button (Bonus)  
+📂 [View Code](https://github.com/Krishjunier/FNext/tree/main/Week4)
 
 ---
 
 ## 🚀 Live Demo Links
 
-> *(Add your GitHub Pages or Replit/Netlify/Render/other links here)*
+> *(Add links after deployment, e.g., GitHub Pages / Netlify / Replit)*
 
-- 🌐 Week 1 Demo: [Live](#)  
-- 🌐 Week 2 Demo: [Live](#)  
-- 🌐 Week 3 Demo: [Live](#)  
-- 🌐 Week 4 Demo: [Live](#)  
+- 🌐 Week 1 Demo: [Coming Soon](#)  
+- 🌐 Week 2 Demo: [Coming Soon](#)  
+- 🌐 Week 3 Demo: [Coming Soon](#)  
+- 🌐 Week 4 Demo: [Coming Soon](#)  
 
 ---
 
